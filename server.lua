@@ -17,7 +17,7 @@ end
 
 while true do
   input = io.read()
-  modem.send(slave, 22, result)
+  modem.send(slave, 22, input)
   while true do
     local _, _, from, port, _, message = event.pull("modem_message")
     if (from == slave and port == 22) then
