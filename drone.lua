@@ -1,7 +1,6 @@
-local component = require("component")
-local event = require("event")
-local robot = require("robot")
-local modem = component.modem
+local event = component.proxy(component.list("event"))
+local drone = component.proxy(component.list("drone"))
+local modem = component.proxy(component.list("modem"))
 
 modem.open(67)
 
@@ -26,13 +25,13 @@ while true do
     local result = command()
     modem.send(master, 22, result)
   elseif (from == master and port == 23) then
-    if     message == 'x' then robot.up()
-    elseif message == 'v' then robot.forward()
-    elseif message == 'l' then robot.down()
-    elseif message == 'u' then robot.turnLeft()
-    elseif message == 'i' then robot.back()
-    elseif message == 'a' then robot.turnRight()
-    elseif message == 'e' then robot.swing()
-    elseif message == 'o' then robot.drop() end
+    if     message == 'x' then drone.move(  0,  1,  0)
+    elseif message == 'v' then drone.move(  0,  0, -1)
+    elseif message == 'l' then drone.move(  0, -1,  0)
+    elseif message == 'u' then drone.move( -1,  0,  0)
+    elseif message == 'i' then drone.move(  0,  0,  1)
+    elseif message == 'a' then drone.move(  1,  0,  0)
+    elseif message == 'e' then drone.swing()
+    elseif message == 'o' then drone.drop() end
   end
 end
