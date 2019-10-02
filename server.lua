@@ -31,7 +31,7 @@ while true do
       elseif key == 46.0 then break end
     end
   else
-    modem.send(slave, 23, input)
+    modem.send(slave, 22, input)
 		while true do
 			local _, _, from, port, _, message = event.pull("modem_message")
 			if (from == slave and port == 22) then

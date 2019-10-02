@@ -20,8 +20,8 @@ modem.send(master, 22, "CONNECT")
 while true do
   local event, _, from, port, _, message = computer.pullSignal()
   if (event == "modem_message" and from == master and port == 22) then
-    local command = pcall(load(message))
-    local result = command()
+    local command = load(message)
+    local result = pcall(command())
     modem.send(master, 22, result)
   elseif (from == master and port == 23) then
     if     message == 'x' then drone.move(  0,  1,  0)
@@ -30,7 +30,7 @@ while true do
     elseif message == 'u' then drone.move( -1,  0,  0)
     elseif message == 'i' then drone.move(  0,  0,  1)
     elseif message == 'a' then drone.move(  1,  0,  0)
-    elseif message == 'e' then drone.swing()
-    elseif message == 'o' then drone.drop() end
+    elseif message == 'e' then drone.swing(0)
+    elseif message == 'o' then drone.drop(0, 1) end
   end
 end
