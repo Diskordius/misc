@@ -1,5 +1,5 @@
-local drone = component.proxy(component.list("drone")())
-local modem = component.proxy(component.list("modem")())
+drone = component.proxy(component.list("drone")())
+modem = component.proxy(component.list("modem")())
 
 modem.open(67)
 
@@ -21,7 +21,7 @@ while true do
   local event, _, from, port, _, message = computer.pullSignal()
   if (event == "modem_message" and from == master and port == 22) then
     local command = load(message)
-    local result = pcall(command())
+    local result = pcall(command)
     modem.send(master, 22, result)
   elseif (from == master and port == 23) then
     if     message == 'x' then drone.move(  0,  1,  0)
